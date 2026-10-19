@@ -2,24 +2,6 @@
 
 ASP.NET Core MVC + EF Core + SQLite rakendus matemaatiliste funktsioonide uurimiseks.
 
-## Mis on parandatud võrreldes algse projektiga
-
-- eemaldatud dubleeritud `AddControllersWithViews()`;
-- eemaldatud kasutamata Razor Pages `.cshtml.cs` failid;
-- valemi kontroll toimub enne salvestamist;
-- `DataTable.Compute` asendatud turvalisema rekursiivse parseriga;
-- toetatud `+ - * / ^`, `sin`, `cos`, `tan`, `sqrt`, `ln`, `log`, `exp`, `abs`, `pi`, `e`;
-- tuletis arvutatakse AST-põhise sümboolse tuletamisega;
-- lisatud nullkohtade leidmine;
-- kriitilised punktid leitakse tuletise nullkohtadest;
-- maksimum/minimum määratakse tuletise märgi muutuse järgi;
-- määramispiirkonda ei väideta automaatselt `R`, kui funktsioonil esineb katkestusi;
-- CRUD kasutab `AsNoTracking()` lugemisel;
-- `Delete` kontrollib, kas objekt eksisteerib;
-- andmebaasi migratsioon rakendatakse käivitamisel;
-- graafiku valem süstitakse JavaScripti JSON-serialiseerimisega, mitte otse stringi sisse;
-- UI on lihtsam ja eemaldatud ebavajalikud failid.
-
 ## Käivitamine
 
 1. Paigalda .NET 8 SDK.
