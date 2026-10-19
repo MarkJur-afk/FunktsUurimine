@@ -1,0 +1,12 @@
+@model FunktsiooniUurimine
+@{ ViewData["Title"] = "Uus analüüs"; }
+<h1>Uus funktsiooni analüüs</h1>
+<div class="hint">Näited: <code>x^2-4*x+3</code>, <code>sin(x)</code>, <code>1/(x-2)</code>, <code>sqrt(x)</code>.</div>
+<form asp-action="Create" method="post" class="form-card">
+    <label asp-for="Valem"></label>
+    <input asp-for="Valem" placeholder="x^2 - 4*x + 3" autocomplete="off" />
+    <span asp-validation-for="Valem" class="error"></span>
+    <button class="button" type="submit">Analüüsi ja salvesta</button>
+    <a asp-action="Index">Tagasi</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

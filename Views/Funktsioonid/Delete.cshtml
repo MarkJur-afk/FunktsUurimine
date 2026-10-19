@@ -1,0 +1,9 @@
+@model FunktsiooniUurimine
+@{ ViewData["Title"] = "Kustuta"; }
+<h1>Kustuta funktsioon</h1>
+<p>Kas oled kindel, et soovid funktsiooni <strong>@Model.Valem</strong> kustutada?</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="button danger" type="submit">Kustuta</button>
+    <a asp-action="Index">Loobu</a>
+</form>
