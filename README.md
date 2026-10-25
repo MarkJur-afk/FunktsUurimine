@@ -1,37 +1,28 @@
-# FunktsUurimine — parandatud näidisprojekt
+# Funktsioonide uurimine
 
-ASP.NET Core MVC + EF Core + SQLite rakendus matemaatiliste funktsioonide uurimiseks.
+ASP.NET Core MVC rakendus matemaatiliste funktsioonide analüüsimiseks. Rakendus leiab tuletise, nullkohad, kriitilised punktid ja ekstreemumid ning kuvab graafiku. Kasutajaliides on eesti ja vene keeles.
 
 ## Käivitamine
 
-1. Paigalda .NET 8 SDK.
-2. Ava terminal projekti kaustas.
-3. Käivita:
+1. Paigalda [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+2. Ava terminal projekti kaustas ja käivita:
 
 ```bash
 dotnet restore
-dotnet ef migrations add InitialCreate
 dotnet run
 ```
 
-Kui `dotnet ef` puudub:
+3. Ava terminalis kuvatud `http://localhost:xxxx` aadress.
 
-```bash
-dotnet tool install --global dotnet-ef
-```
+SQLite andmebaas ja vajalikud migratsioonid luuakse käivitamisel automaatselt.
 
-Seejärel ava terminalis näidatud localhost-aadress.
-
-## Näited
+## Proovi neid valemeid
 
 ```text
-x^2 - 4*x + 3
-x^3 - 3*x
+x^2-6*x+9
+(x^2-1)/(x^2-4)
+x*sqrt(1-x^2)
 sin(x)
-1/(x-2)
-sqrt(x)
 ```
 
-## Märkus
-
-Numbriline nullkohtade ja määramispiirkonna tuvastamine toimub piiratud vahemikus `[-20, 20]`. See on teadlik piirang, mitte väide, et programm suudab analüüsida iga võimalikku matemaatilist funktsiooni kogu reaalteljel.
+Nullkohtade ja määramispiirkonna arvutus on numbriline ning toimub vahemikus `[-20, 20]`.
