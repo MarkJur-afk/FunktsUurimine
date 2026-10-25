@@ -1,12 +1,12 @@
 @model FunktsiooniUurimine
 @{ ViewData["Title"] = "Muuda"; }
-<h1>Muuda funktsiooni</h1>
+<h1 data-i18n="edit.title">Muuda funktsiooni</h1>
 <form asp-action="Edit" method="post" class="form-card">
     <input type="hidden" asp-for="Id" />
-    <label asp-for="Valem"></label>
+    <label asp-for="Valem" data-i18n="edit.formula">Funktsiooni valem</label>
     <input asp-for="Valem" />
     <span asp-validation-for="Valem" class="error"></span>
-    <button class="button" type="submit">Salvesta</button>
-    <a asp-action="Index">Tagasi</a>
+    <button class="button" type="submit" data-i18n="edit.save">Salvesta</button>
+    <a asp-action="Index" data-i18n="edit.back">Tagasi</a>
 </form>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

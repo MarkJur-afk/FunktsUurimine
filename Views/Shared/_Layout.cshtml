@@ -15,15 +15,18 @@
 
     <header class="topbar">
         <nav>
-            <a asp-controller="Home" asp-action="Index">Avaleht</a>
+            <a class="brand" asp-controller="Home" asp-action="Index">Funktsioonid</a>
 
-            <a asp-controller="Funktsioonid" asp-action="Index">
-                Funktsioonid
-            </a>
+            <a asp-controller="Funktsioonid" asp-action="Index" data-i18n="nav.saved">Minu analüüsid</a>
 
-            <a asp-controller="Funktsioonid" asp-action="Create">
-                Uus analüüs
-            </a>
+            <a asp-controller="Funktsioonid" asp-action="Create" data-i18n="nav.new">Uus analüüs</a>
+
+            <a asp-controller="Home" asp-action="Theory" data-i18n="nav.theory">Teooria</a>
+
+            <select id="languageSelect" class="language-select" aria-label="Keel / Язык">
+                <option value="et">EST</option>
+                <option value="ru">RUS</option>
+            </select>
 
             <button id="themeToggle" class="theme-toggle">
                 🌙 Tume teema
@@ -38,6 +41,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script src="~/java/theme.js"></script>
+    <script src="~/java/language.js"></script>
 
 </body>
 </html>

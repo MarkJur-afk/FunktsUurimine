@@ -1,6 +1,15 @@
 @{ ViewData["Title"] = "Avaleht"; }
-<div class="hero">
-    <h1>Funktsioonide uurimine</h1>
-    <p>Sisesta matemaatiline funktsioon ja vaata selle tuletist, nullkohti, kriitilisi punkte, määramispiirkonda ja graafikut.</p>
-    <a class="button" asp-controller="Funktsioonid" asp-action="Create">Alusta analüüsi</a>
-</div>
+<section class="hero">
+    <p class="eyebrow" data-i18n="home.eyebrow">Matemaatika märkmik</p>
+    <h1 data-i18n="home.title">Funktsioonide uurimine</h1>
+    <p data-i18n="home.lead">Sisesta valem ja saa ühes kohas kätte tuletise, nullkohad, kriitilised punktid, ekstreemumid ning selge graafiku.</p>
+    <div class="hero-actions">
+        <a class="button" asp-controller="Funktsioonid" asp-action="Create"><span data-i18n="home.start">Alusta analüüsi</span> <span aria-hidden="true">→</span></a>
+        <a class="button secondary" asp-controller="Home" asp-action="Theory" data-i18n="home.learn">Õpi teooriat</a>
+    </div>
+</section>
+<section class="feature-grid" aria-label="Rakenduse võimalused">
+    <article class="feature-card"><div class="feature-icon">ƒ</div><h2 data-i18n="home.fastTitle">Kiire analüüs</h2><p data-i18n="home.fastText">Leia funktsiooni põhiomadused ühe sisestusega ja salvesta tulemus hilisemaks.</p></article>
+    <article class="feature-card"><div class="feature-icon">↗</div><h2 data-i18n="home.graphTitle">Selge graafik</h2><p data-i18n="home.graphText">Võrdle funktsiooni ja selle tuletist samal koordinaatteljestikul.</p></article>
+    <article class="feature-card"><div class="feature-icon">✦</div><h2 data-i18n="home.exampleTitle">Näited käepärast</h2><p data-i18n="home.exampleText">Alusta valmis näitest või kirjuta oma valem täpselt nii, nagu soovid.</p></article>
+</section>

@@ -1,13 +1,13 @@
 @model IEnumerable<FunktsiooniUurimine>
 @{ ViewData["Title"] = "Funktsioonid"; }
-<div class="page-head"><h1>Funktsioonid</h1><a class="button" asp-action="Create">+ Lisa uus</a></div>
-@if (!Model.Any()) { <p>Salvestatud funktsioone veel ei ole.</p> }
+<div class="page-head"><div><p class="eyebrow" data-i18n="index.eyebrow">Sinu ajalugu</p><h1 data-i18n="index.title">Minu analüüsid</h1></div><a class="button" asp-action="Create" data-i18n="index.new">+ Uus analüüs</a></div>
+@if (!Model.Any()) { <p data-i18n="index.empty">Salvestatud funktsioone veel ei ole.</p> }
 else {
-<table>
-<thead><tr><th>Valem</th><th>Tuletis</th><th>Nullkohad</th><th>Ekstreemumid</th><th></th></tr></thead>
+<div class="table-wrap"><table>
+<thead><tr><th data-i18n="table.formula">Valem</th><th data-i18n="table.derivative">Tuletis</th><th data-i18n="table.zeros">Nullkohad</th><th data-i18n="table.extrema">Ekstreemumid</th><th></th></tr></thead>
 <tbody>
 @foreach (var item in Model) {
-<tr><td>@item.Valem</td><td>@item.Tuletis</td><td>@item.Nullkohad</td><td>@item.Ekstreemumid</td><td class="actions"><a asp-action="Details" asp-route-id="@item.Id">Vaata</a><a asp-action="Edit" asp-route-id="@item.Id">Muuda</a><a asp-action="Delete" asp-route-id="@item.Id">Kustuta</a></td></tr>
+<tr><td>@item.Valem</td><td>@item.Tuletis</td><td>@item.Nullkohad</td><td>@item.Ekstreemumid</td><td class="actions"><a asp-action="Details" asp-route-id="@item.Id" data-i18n="table.view">Vaata</a><a asp-action="Edit" asp-route-id="@item.Id" data-i18n="table.edit">Muuda</a><a asp-action="Delete" asp-route-id="@item.Id" data-i18n="table.delete">Kustuta</a></td></tr>
 }
-</tbody></table>
+</tbody></table></div>
 }

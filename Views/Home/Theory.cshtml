@@ -1,0 +1,19 @@
+@{ ViewData["Title"] = "Teooria"; }
+<div class="theory-hero">
+    <p class="eyebrow" data-i18n="theory.eyebrow">Lühike abimaterjal</p>
+    <h1 data-i18n="theory.title">Funktsiooni uurimine,<br />rahulikult ja järjest.</h1>
+    <p data-i18n="theory.lead">Kasuta seda lehte valemi analüüsi kõrval. Iga osa aitab sul mõista, mida tulemus tähendab.</p>
+</div>
+<div class="theory-layout">
+    <nav class="theory-toc" aria-label="Teooria sisukord">
+        <a href="#domain" data-i18n="theory.tocDomain">01 &nbsp; Määramispiirkond</a><a href="#zeros" data-i18n="theory.tocZeros">02 &nbsp; Nullkohad</a><a href="#derivative" data-i18n="theory.tocDerivative">03 &nbsp; Tuletis</a><a href="#critical" data-i18n="theory.tocCritical">04 &nbsp; Kriitilised punktid</a><a href="#extrema" data-i18n="theory.tocExtrema">05 &nbsp; Ekstreemumid</a><a href="#shape" data-i18n="theory.tocShape">06 &nbsp; Graafiku kuju</a>
+    </nav>
+    <main class="theory-content">
+        <section class="theory-section" id="domain"><span>01</span><h2>Määramispiirkond</h2><p>Määramispiirkond ütleb, milliseid <em>x</em>-i väärtusi võib valemisse asetada. Nulliga ei jagata, ruutjuure all olev avaldis peab olema vähemalt null ja logaritmi sees olev arv peab olema positiivne.</p><div class="theory-example"><b>Näide</b><p><code>f(x) = 1 / (x − 2)</code> korral ei tohi <em>x = 2</em>, sest siis oleks nimetaja null.</p></div></section>
+        <section class="theory-section" id="zeros"><span>02</span><h2>Nullkohad</h2><p>Nullkohtades on funktsiooni väärtus null — seal kohtub graafik x-teljega. Nende leidmiseks lahenda võrrand <code>f(x) = 0</code>.</p><div class="theory-example"><b>Näide</b><p><code>x² − 4 = 0</code> annab nullkohad <em>x = −2</em> ja <em>x = 2</em>.</p></div></section>
+        <section class="theory-section" id="derivative"><span>03</span><h2>Esimene tuletis</h2><p>Tuletis näitab, kuidas funktsioon parasjagu muutub. Kui <code>f′(x) &gt; 0</code>, funktsioon kasvab; kui <code>f′(x) &lt; 0</code>, funktsioon kahaneb.</p><div class="theory-example"><b>Kasulik reegel</b><p><code>(xⁿ)′ = n · xⁿ⁻¹</code>. Näiteks <code>(x³)′ = 3x²</code>.</p></div></section>
+        <section class="theory-section" id="critical"><span>04</span><h2>Kriitilised punktid</h2><p>Kriitiline punkt võib olla kohas, kus <code>f′(x) = 0</code>, või kus tuletis puudub, kuid funktsioon ise on olemas. Need punktid jagavad graafiku kasvamis- ja kahanemisvahemikeks.</p></section>
+        <section class="theory-section" id="extrema"><span>05</span><h2>Ekstreemumid</h2><p>Kui tuletise märk muutub plussist miinuseks, on tegemist kohaliku maksimumiga. Kui märk muutub miinusest plussiks, on tegemist kohaliku miinimumiga.</p><div class="theory-example"><b>Näide</b><p>Funktsioonil <code>x² − 4</code> on miinimumpunkt <em>(0; −4)</em>.</p></div></section>
+        <section class="theory-section" id="shape"><span>06</span><h2>Graafiku kuju</h2><p>Teine tuletis aitab näha paindumist. Kui <code>f″(x) &gt; 0</code>, avaneb graafik ülespoole; kui <code>f″(x) &lt; 0</code>, allapoole. Märgivahetus võib tähendada käänupunkti.</p></section>
+    </main>
+</div>

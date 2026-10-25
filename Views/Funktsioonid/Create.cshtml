@@ -1,12 +1,41 @@
 @model FunktsiooniUurimine
 @{ ViewData["Title"] = "Uus analüüs"; }
-<h1>Uus funktsiooni analüüs</h1>
-<div class="hint">Näited: <code>x^2-4*x+3</code>, <code>sin(x)</code>, <code>1/(x-2)</code>, <code>sqrt(x)</code>.</div>
-<form asp-action="Create" method="post" class="form-card">
-    <label asp-for="Valem"></label>
-    <input asp-for="Valem" placeholder="x^2 - 4*x + 3" autocomplete="off" />
-    <span asp-validation-for="Valem" class="error"></span>
-    <button class="button" type="submit">Analüüsi ja salvesta</button>
-    <a asp-action="Index">Tagasi</a>
-</form>
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }
+<div class="page-head"><div><p class="eyebrow" data-i18n="create.eyebrow">Uus uurimine</p><h1 data-i18n="create.title">Analüüsi funktsiooni</h1><p class="muted" data-i18n="create.lead">Vali näide või sisesta enda valem.</p></div></div>
+<div class="analysis-layout">
+    <form asp-action="Create" method="post" class="form-card">
+        <p class="hint" data-i18n="create.hint">Toetatud on <code>+ − × ÷ ^</code>, <code>x</code>, <code>pi</code>, <code>e</code> ning näiteks <code>sin(x)</code>, <code>sqrt(x)</code> ja <code>ln(x)</code>.</p>
+        <label class="field-label" for="exampleFormula" data-i18n="create.examples">Näidisfunktsioon</label>
+        <select id="exampleFormula" class="example-select">
+            <option value="" data-i18n="create.choose">— Vali näide (soovi korral) —</option>
+            <option value="x^2-6*x+9">x² − 6x + 9</option><option value="(-2+3*x)*(-2-3*x)">(−2 + 3x)(−2 − 3x)</option><option value="(x^2-1)^3">(x² − 1)³</option><option value="(x^2-1)/(x^2-4)">(x² − 1) / (x² − 4)</option><option value="x^2/(x^2-4)">x² / (x² − 4)</option><option value="x*sqrt(1-x^2)">x√(1 − x²)</option><option value="(x-2)*sqrt(x)">(x − 2)√x</option><option value="sqrt(x^2-4*x+8)">√(x² − 4x + 8)</option>
+        </select>
+        <label asp-for="Valem" data-i18n="create.formula">Funktsiooni valem</label>
+        <input asp-for="Valem" placeholder="Näiteks: x^2 - 4*x + 3" data-i18n-placeholder="create.placeholder" autocomplete="off" />
+        <span asp-validation-for="Valem" class="error"></span>
+        <div class="form-actions"><button class="button" type="submit" data-i18n="create.save">Analüüsi ja salvesta</button><a asp-action="Index" data-i18n="create.back">Tagasi loendisse</a></div>
+    </form>
+    <aside class="calculator function-keypad" aria-label="Funktsiooni kalkulaator">
+        <h2 data-i18n="create.keypadTitle">Funktsiooni kalkulaator</h2><p data-i18n="create.keypadLead">Kasuta nuppe valemi kiireks koostamiseks.</p>
+        <div class="calc-keys">
+            <button type="button" class="calc-key function-key" data-insert="^2">x²</button><button type="button" class="calc-key function-key" data-template="^()" data-offset="2">xʸ</button><button type="button" class="calc-key function-key" data-function="sqrt">√</button><button type="button" class="calc-key function-key" data-function="ln">ln</button>
+            <button type="button" class="calc-key function-key" data-function="sin">sin</button><button type="button" class="calc-key function-key" data-function="cos">cos</button><button type="button" class="calc-key function-key" data-insert="e">e</button><button type="button" class="calc-key clear" data-action="clear">AC</button>
+            <button type="button" class="calc-key" data-insert="(">(</button><button type="button" class="calc-key" data-insert=")">)</button><button type="button" class="calc-key" data-action="backspace">⌫</button><button type="button" class="calc-key operator" data-insert="/">÷</button>
+            <button type="button" class="calc-key" data-insert="7">7</button><button type="button" class="calc-key" data-insert="8">8</button><button type="button" class="calc-key" data-insert="9">9</button><button type="button" class="calc-key operator" data-insert="*">×</button>
+            <button type="button" class="calc-key" data-insert="4">4</button><button type="button" class="calc-key" data-insert="5">5</button><button type="button" class="calc-key" data-insert="6">6</button><button type="button" class="calc-key operator" data-insert="-">−</button>
+            <button type="button" class="calc-key" data-insert="1">1</button><button type="button" class="calc-key" data-insert="2">2</button><button type="button" class="calc-key" data-insert="3">3</button><button type="button" class="calc-key operator" data-insert="+">+</button>
+            <button type="button" class="calc-key" data-insert="0">0</button><button type="button" class="calc-key" data-insert=".">.</button><button type="button" class="calc-key" data-insert="x">x</button><button type="button" class="calc-key function-key" data-insert="pi">π</button>
+        </div>
+    </aside>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" />
+<script>
+const example = document.getElementById('exampleFormula'), formula = document.getElementById('Valem'), keypad = document.querySelector('.function-keypad');
+let start = formula.value.length, end = start;
+function select(position, selectionEnd = position) { start = Math.max(0, Math.min(formula.value.length, position)); end = Math.max(start, Math.min(formula.value.length, selectionEnd)); formula.focus({ preventScroll: true }); formula.setSelectionRange(start, end); }
+function capture() { start = formula.selectionStart ?? formula.value.length; end = formula.selectionEnd ?? start; }
+function replace(text, offset = text.length) { const next = formula.value.slice(0, start) + text + formula.value.slice(end); if (next.length > 200) return; formula.value = next; select(start + offset); formula.dispatchEvent(new Event('input', { bubbles: true })); }
+formula.addEventListener('click', capture); formula.addEventListener('keyup', capture); formula.addEventListener('select', capture); formula.addEventListener('input', capture);
+keypad.addEventListener('pointerdown', event => { if (event.target.closest('button')) event.preventDefault(); });
+keypad.addEventListener('click', event => { const button = event.target.closest('button'); if (!button) return; const selected = formula.value.slice(start, end); if (button.dataset.insert != null) { const text = button.dataset.insert; const needsBase = !formula.value.slice(0, start).trim() || /[+\-*/(]\s*$/.test(formula.value.slice(0, start)); replace(text.startsWith('^') ? (selected ? `(${selected})${text}` : needsBase ? `x${text}` : text) : text); } else if (button.dataset.function) { const name = button.dataset.function, text = `${name}(${selected})`; replace(text, selected ? text.length : name.length + 1); } else if (button.dataset.template) { const prefix = selected ? `(${selected})` : (!formula.value.slice(0, start).trim() || /[+\-*/(]\s*$/.test(formula.value.slice(0, start)) ? 'x' : ''); replace(prefix + button.dataset.template, prefix.length + Number(button.dataset.offset)); } else if (button.dataset.action === 'clear') { start = 0; end = formula.value.length; replace(''); } else if (button.dataset.action === 'backspace') { if (start === end && start > 0) start--; replace(''); } });
+example.addEventListener('change', () => { if (example.value) { formula.value = example.value; select(formula.value.length); example.value = ''; } });
+</script> }

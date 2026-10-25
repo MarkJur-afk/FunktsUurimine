@@ -39,9 +39,10 @@ function applyTheme(theme) {
         return;
     }
 
-    if (theme === "dark") {
-        button.textContent = "☀️ Hele teema";
-    } else {
-        button.textContent = "🌙 Tume teema";
-    }
+    const russian = localStorage.getItem("language") === "ru";
+    button.textContent = theme === "dark"
+        ? (russian ? "☀️ Светлая тема" : "☀️ Hele teema")
+        : (russian ? "🌙 Тёмная тема" : "🌙 Tume teema");
 }
+
+window.addEventListener("languagechange", () => applyTheme(document.documentElement.getAttribute("data-theme") || "light"));

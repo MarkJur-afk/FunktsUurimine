@@ -1,23 +1,28 @@
 @model FunktsiooniUurimine
 @{ ViewData["Title"] = "Detailid"; }
-<div class="page-head"><div><h1>f(x) = @Model.Valem</h1><p class="muted">Graafiku vahemik: -10 kuni 10.</p></div><div><a asp-action="Edit" asp-route-id="@Model.Id">Muuda</a> · <a asp-action="Index">Tagasi</a></div></div>
+<div class="page-head"><div><h1>f(x) = @Model.Valem</h1><p class="muted" data-i18n="details.range">Graafiku vahemik: -10 kuni 10.</p></div><div><a asp-action="Edit" asp-route-id="@Model.Id" data-i18n="details.edit">Muuda</a> · <a asp-action="Index" data-i18n="details.back">Tagasi</a></div></div>
 <div class="results">
-<div><b>Määramispiirkond</b><span>@Model.Maaramispiirkond</span></div>
-<div><b>Tuletis</b><span>@Model.Tuletis</span></div>
-<div><b>Nullkohad</b><span>@Model.Nullkohad</span></div>
-<div><b>Kriitilised punktid</b><span>@Model.KriitilisedPunktid</span></div>
-<div><b>Ekstreemumid</b><span>@Model.Ekstreemumid</span></div>
+<div><b data-i18n="details.domain">Määramispiirkond</b><span>@Model.Maaramispiirkond</span></div>
+<div><b data-i18n="details.derivative">Tuletis</b><span>@Model.Tuletis</span></div>
+<div><b data-i18n="details.zeros">Nullkohad</b><span>@Model.Nullkohad</span></div>
+<div><b data-i18n="details.critical">Kriitilised punktid</b><span>@Model.KriitilisedPunktid</span></div>
+<div><b data-i18n="details.extrema">Ekstreemumid</b><span>@Model.Ekstreemumid</span></div>
 </div>
 <div class="chart-card"><canvas id="chart"></canvas></div>
 @section Scripts {
 <script>
 const formula = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Valem));
+const chartStyle = getComputedStyle(document.documentElement);
+const functionColor = chartStyle.getPropertyValue('--button-bg').trim();
+const derivativeColor = chartStyle.getPropertyValue('--accent').trim() || '#d9a75d';
+const labelColor = chartStyle.getPropertyValue('--text-color').trim();
+const gridColor = chartStyle.getPropertyValue('--border-color').trim();
 const allowed = { sin: Math.sin, cos: Math.cos, tan: Math.tan, sqrt: Math.sqrt, ln: Math.log, log: Math.log10, exp: Math.exp, abs: Math.abs };
 function tokenize(s) { return s.toLowerCase().replace(/\s+/g,'').replace(/pi/g,'Math.PI').replace(/\be\b/g,'Math.E').replace(/\^/g,'**').replace(/(sin|cos|tan|sqrt|ln|log|exp|abs)\s*\(/g,'Math.$1(').replace(/\bx\b/g,'(x)'); }
 function evaluate(x) { try { const code = tokenize(formula); return Function('x','"use strict"; return ('+code+');')(x); } catch { return NaN; } }
 function derivative(x) { const h=0.0001; const a=evaluate(x+h), b=evaluate(x-h); return Number.isFinite(a)&&Number.isFinite(b) ? (a-b)/(2*h) : NaN; }
 const labels=[], values=[], deriv=[];
 for(let x=-10;x<=10.0001;x+=0.05){labels.push(Number(x.toFixed(2))); values.push(evaluate(x)); deriv.push(derivative(x));}
-new Chart(document.getElementById('chart'),{type:'line',data:{labels,datasets:[{label:'f(x)',data:values,pointRadius:0,borderWidth:2},{label:"f'(x)",data:deriv,pointRadius:0,borderWidth:2,borderDash:[6,4]}]},options:{responsive:true,interaction:{mode:'index',intersect:false},scales:{x:{title:{display:true,text:'x'}},y:{title:{display:true,text:'y'}}}}});
+new Chart(document.getElementById('chart'),{type:'line',data:{labels,datasets:[{label:'f(x)',data:values,pointRadius:0,borderWidth:2.5,borderColor:functionColor,backgroundColor:functionColor,tension:.18},{label:"f'(x)",data:deriv,pointRadius:0,borderWidth:2,borderColor:derivativeColor,backgroundColor:derivativeColor,borderDash:[6,4],tension:.18}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:labelColor,usePointStyle:true,boxWidth:9}}},scales:{x:{title:{display:true,text:'x',color:labelColor},ticks:{color:labelColor},grid:{color:gridColor}},y:{title:{display:true,text:'y',color:labelColor},ticks:{color:labelColor},grid:{color:gridColor}}}}});
 </script>
 }
